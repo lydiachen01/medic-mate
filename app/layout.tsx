@@ -33,14 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+    <html lang="en">
+      <body>
         <Navbar />
-        <div className="grid grid-cols-2">
-          <CenteredPage children={<UserInputForm />}/>
-          <PillBottle />
-          <div>hello</div>
-        </div>
+        <main>{children}</main>
       </body>
     </html>
   );
