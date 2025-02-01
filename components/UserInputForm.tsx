@@ -6,7 +6,9 @@ interface InputProps {
 const InputField: React.FC<InputProps> = ({ fieldName }) => {
     return (
         <div>
-            <label htmlFor={fieldName}>Drug Name:</label>
+            <label 
+                htmlFor={fieldName}
+                className="pr-4">{fieldName}:</label>
             <input 
                 className="border rounded"
                 type="text" id={fieldName} name={fieldName} required></input>
@@ -16,8 +18,8 @@ const InputField: React.FC<InputProps> = ({ fieldName }) => {
 
 const UserInputForm: React.FC = () => {
     return (
-        <div className="flex justify-center max-w-max border border-slate-500 rounded-lg">
-            <form>
+        <div className="flex justify-center max-w-max border border-slate-500 rounded-lg p-4 py-10">
+            <form className="grid grid-cols-1 gap-4">
                 <InputField fieldName="drugName" />
                 <InputField fieldName="dosage" />
                 <InputField fieldName="frequency" />

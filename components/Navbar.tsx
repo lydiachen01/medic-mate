@@ -18,11 +18,11 @@ const Navbar: React.FC = () => {
         <>
             <nav className="flex items-center justify-between py-4 lg:pl-10 mx-[15vw]">
                 <a href="/" className="flex items-center">
-                    <img src="/logo.png" alt="Logo" className="h-[4rem] pl-4" />
+                    <img src="logo.png" alt="Logo" className="h-[4rem] pl-4" />
                 </a>
                 <div className="flex items-center space-x-10">
                     <button className="flex items-center lg:hidden block rounded p-2">
-                        <img src="/logo.png" alt="Logo" className="h-7" />
+                        <img src="logo.png" alt="Logo" className="h-7" />
                     </button>
                     <Tabs tabName="disclaimer" link="/#" />
                 </div>
