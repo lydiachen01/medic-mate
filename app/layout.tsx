@@ -9,6 +9,8 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import UserInputForm from "@/components/UserInputForm";
+import CenteredPage from "@/components/CenteredPage";
+import { PillBottle } from "lucide-react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -34,8 +36,11 @@ export default function RootLayout({
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <Navbar />
-        <UserInputForm />
-        <div>hello</div>
+        <div className="grid grid-cols-2">
+          <CenteredPage children={<UserInputForm />}/>
+          <PillBottle />
+          <div>hello</div>
+        </div>
       </body>
     </html>
   );
