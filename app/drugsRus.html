@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Interaction Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Drug Interaction Checker</h1>
+        <form id="drug-form">
+            <label for="drug-name">Enter the name of the drug you are taking:</label>
+            <input type="text" id="drug-name" name="drug-name" required>
+            <button type="submit">Check</button>
+        </form>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById("drug-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let drugName = document.getElementById("drug-name").value;
+            
+            fetch("/check_drug?name=" + encodeURIComponent(drugName))
+                .then(response => response.json())
+                .then(data => {
+                    let resultsDiv = document.getElementById("results");
+                    resultsDiv.innerHTML = "";
+                    
+                    let sideEffects = document.createElement("p");
+                    sideEffects.textContent = "Side Effects: " + (data.side_effects || "No side effects data available.");
+                    resultsDiv.appendChild(sideEffects);
+                    
+                    let interactionsHeader = document.createElement("h2");
+                    interactionsHeader.textContent = "Drug Interactions:";
+                    resultsDiv.appendChild(interactionsHeader);
+                    
+                    if (data.interactions.length > 0) {
+                        let ul = document.createElement("ul");
+                        data.interactions.forEach(interaction => {
+                            let li = document.createElement("li");
+                            li.innerHTML = `<strong>${interaction.drug}:</strong> ${interaction.description}`;
+                            ul.appendChild(li);
+                        });
+                        resultsDiv.appendChild(ul);
+                    } else {
+                        let noInteractions = document.createElement("p");
+                        noInteractions.textContent = "No known interactions found.";
+                        resultsDiv.appendChild(noInteractions);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        });
+    </script>
+</body>
+</html>
