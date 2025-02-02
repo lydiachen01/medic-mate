@@ -40,7 +40,7 @@ Built with Next.js, supabase, pytesseract, and gemini api.
 2. Use `cd` to change into the app's directory
 
    ```bash
-   cd MedicMate
+   cd medic-mate
    ```
 3. npm install support for supabase
 
