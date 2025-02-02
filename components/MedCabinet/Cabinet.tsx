@@ -5,6 +5,7 @@ import PillBottle from "./PillBottle"
 import CabinetEdit from './CabinetEdit';
 import { Pencil, X, Plus, Image, Edit3 } from 'lucide-react';
 import AddMedication from '@/app/add_meds/add_meds';
+import InputField from '../InputField';
 
 interface Medication {
   drug: string;
@@ -142,7 +143,18 @@ const Cabinet: React.FC = () => {
             {activeForm === 'manual' && (
               <div className="space-y-4">
                 {/* Add your manual input form here */}
-                <p>Manual input form coming soon...</p>
+                <form>
+                    <InputField fieldName="Drug" type="text"/>
+                    <InputField fieldName="Dosage" type="text+dropdown"/>
+                    <InputField fieldName="Frequency" type="dropdown"/>
+                    
+                    <button 
+                        type="submit" 
+                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        Add Medication
+                    </button>
+                </form>
               </div>
             )}
 

@@ -5,6 +5,7 @@ import Center from "@/components/Center";
 import UserInputForm from "@/components/ManualEntry";
 import Cabinet from "@/components/MedCabinet/Cabinet";
 import { redirect } from 'next/navigation';
+import Intro from "@/components/Homepage/Intro";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -18,7 +19,8 @@ export default async function HomePage() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '40% 60%' }} className="gap-4 p-4">
       <Center>
-        <UserInputForm />
+        <Intro />
+        {/* <UserInputForm /> */}
       </Center>
       <Center>
         <Cabinet />

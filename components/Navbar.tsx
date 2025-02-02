@@ -16,7 +16,7 @@ const Tabs: React.FC<TabsProps> = ({ tabName, link, onClick }) => {
         <Link 
             href={link} 
             onClick={onClick}
-            className="hover:underline hidden lg:block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500"
+            className="hover:underline lg:block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500"
         >
             {tabName}
         </Link>
