@@ -1,0 +1,112 @@
+'use client'
+
+import React, { useState } from 'react';
+import PillBottle from "./PillBottle"
+import CabinetEdit from './CabinetEdit';
+import { Pencil, X } from 'lucide-react';
+
+interface Medication {
+  drug: string;
+  dosage: string;
+  image: string;
+}
+
+const Cabinet: React.FC = () => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedMedication, setSelectedMedication] = useState<Medication | null>(null);
+
+  const handlePillBottleClick = (med: Medication) => {
+    console.log("PillBottle clicked:", med);
+    setSelectedMedication(med);
+  };
+
+  const closePopup = () => {
+    setSelectedMedication(null);
+  };
+
+  if (isEditing) {
+    return (
+      <CabinetEdit 
+        onSave={() => setIsEditing(false)}
+        onCancel={() => setIsEditing(false)}
+      />
+    );
+  }
+
+  // This is just example data - you'll want to fetch this from your database
+  const medications: Medication[] = [
+    { drug: "Lisinopril", dosage: "10mg", image: "/pink_logo.png" },
+    { drug: "Metformin", dosage: "500mg", image: "/pink_logo.png" },
+    { drug: "Sertraline", dosage: "50mg", image: "/pink_logo.png" },
+    { drug: "Levothyroxine", dosage: "75mcg", image: "/pink_logo.png" },
+    { drug: "Omeprazole", dosage: "20mg", image: "/pink_logo.png" },
+    { drug: "Amlodipine", dosage: "5mg", image: "/pink_logo.png" },
+    { drug: "Metoprolol", dosage: "25mg", image: "/pink_logo.png" },
+    { drug: "Gabapentin", dosage: "300mg", image: "/pink_logo.png" },
+    { drug: "Escitalopram", dosage: "10mg", image: "/pink_logo.png" },
+    { drug: "Atorvastatin", dosage: "40mg", image: "/pink_logo.png" },
+    { drug: "Pantoprazole", dosage: "40mg", image: "/pink_logo.png" },
+    { drug: "Fluticasone", dosage: "50mcg", image: "/pink_logo.png" }
+  ];
+
+  return (
+    <div className="h-[70%] w-[70%] relative p-3 sm:p-6 bg-white rounded-lg shadow-lg mx-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg sm:text-xl font-bold">Medicine Cabinet</h2>
+        <button 
+          onClick={() => setIsEditing(true)}
+          className="p-2 sm:px-4 sm:py-2 text-blue-500 rounded"
+        >
+          <Pencil className="w-5 h-5" />
+        </button>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 overflow-y-auto max-h-[calc(100%-4rem)]">
+        {medications.map(med => (
+          <PillBottle 
+            key={med.drug}
+            medication={med}
+            isEditing={false}
+            onClick={() => handlePillBottleClick(med)}
+          />
+        ))}
+      </div>
+
+      {/* Mobile-friendly popup for medication details */}
+      {selectedMedication && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white w-full sm:w-[90vw] md:w-[60vw] lg:w-[40vw] max-h-[80vh] rounded-lg overflow-hidden">
+            <div className="p-4 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg sm:text-xl font-bold">{selectedMedication.drug}</h3>
+                <button 
+                  onClick={closePopup}
+                  className="p-1 hover:bg-gray-100 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-4 overflow-y-auto">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <img 
+                  src={selectedMedication.image} 
+                  alt={selectedMedication.drug} 
+                  className="w-32 h-32 object-contain"
+                />
+                <div className="space-y-2 text-center sm:text-left">
+                  <p className="text-gray-600">
+                    <span className="font-medium">Dosage:</span> {selectedMedication.dosage}
+                  </p>
+                  {/* Add more medication details here */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Cabinet;
