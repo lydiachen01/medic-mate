@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import PillBottle from "./PillBottle"
 import CabinetEdit from './CabinetEdit';
-import { Pencil, X } from 'lucide-react';
+import { Pencil, X, Plus, Image, Edit3 } from 'lucide-react';
+import AddMedication from '@/app/add_meds/add_meds';
 
 interface Medication {
   drug: string;
@@ -14,6 +15,9 @@ interface Medication {
 const Cabinet: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedMedication, setSelectedMedication] = useState<Medication | null>(null);
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
+  const [activeForm, setActiveForm] = useState<'none' | 'manual' | 'image'>('none');
+  const [showAddForm, setShowAddForm] = useState(false);
 
   const handlePillBottleClick = (med: Medication) => {
     console.log("PillBottle clicked:", med);
@@ -22,6 +26,17 @@ const Cabinet: React.FC = () => {
 
   const closePopup = () => {
     setSelectedMedication(null);
+  };
+
+  const handleAddOption = (type: 'manual' | 'image') => {
+    setIsAddMenuOpen(false);
+    setActiveForm(type);
+    setTimeout(() => setShowAddForm(true), 100);
+  };
+
+  const handleCloseForm = () => {
+    setShowAddForm(false);
+    setTimeout(() => setActiveForm('none'), 300);
   };
 
   if (isEditing) {
@@ -50,26 +65,95 @@ const Cabinet: React.FC = () => {
   ];
 
   return (
-    <div className="h-[70%] w-[70%] relative p-3 sm:p-6 bg-white rounded-lg shadow-lg mx-auto">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg sm:text-xl font-bold">Medicine Cabinet</h2>
-        <button 
-          onClick={() => setIsEditing(true)}
-          className="p-2 sm:px-4 sm:py-2 text-blue-500 rounded"
-        >
-          <Pencil className="w-5 h-5" />
-        </button>
+    <div className="h-[70%] w-[70%] relative mx-auto">
+      {/* Main Cabinet View */}
+      <div className={`absolute w-full transition-transform duration-300 ease-in-out ${
+        showAddForm ? '-translate-x-[105%]' : 'translate-x-0'
+      }`}>
+        <div className="p-3 sm:p-6 bg-white rounded-lg shadow-lg">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg sm:text-xl font-bold">Medicine Cabinet</h2>
+            <button 
+              onClick={() => setIsEditing(true)}
+              className="p-2 sm:px-4 sm:py-2 text-blue-500 rounded"
+            >
+              <Pencil className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 overflow-y-auto max-h-[calc(100%-4rem)]">
+            {medications.map(med => (
+              <PillBottle 
+                key={med.drug}
+                medication={med}
+                isEditing={false}
+                onClick={() => handlePillBottleClick(med)}
+              />
+            ))}
+          </div>
+
+          {/* Floating Action Button and Menu */}
+          <div className="absolute bottom-6 right-6">
+            {isAddMenuOpen && (
+              <div className="absolute bottom-16 right-0 bg-white rounded-lg shadow-lg overflow-hidden">
+                <button 
+                  onClick={() => handleAddOption('manual')}
+                  className="flex items-center gap-2 px-4 py-3 hover:bg-gray-100 w-full text-left"
+                >
+                  <Edit3 className="w-5 h-5" />
+                  <span>Manual Input</span>
+                </button>
+                <button 
+                  onClick={() => handleAddOption('image')}
+                  className="flex items-center gap-2 px-4 py-3 hover:bg-gray-100 w-full text-left"
+                >
+                  <Image className="w-5 h-5" />
+                  <span>Image Input</span>
+                </button>
+              </div>
+            )}
+            <button
+              onClick={() => setIsAddMenuOpen(!isAddMenuOpen)}
+              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-3 shadow-lg transition-colors duration-200"
+            >
+              <Plus className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 overflow-y-auto max-h-[calc(100%-4rem)]">
-        {medications.map(med => (
-          <PillBottle 
-            key={med.drug}
-            medication={med}
-            isEditing={false}
-            onClick={() => handlePillBottleClick(med)}
-          />
-        ))}
-      </div>
+
+      {/* Add Medication Form */}
+      {(showAddForm || activeForm !== 'none') && (
+        <div className={`absolute w-full transition-transform duration-300 ease-in-out ${
+          showAddForm ? 'translate-x-0' : 'translate-x-[105%]'
+        }`}>
+          <div className="p-6 bg-white rounded-lg shadow-lg">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold">
+                {activeForm === 'manual' ? 'Add Medication Manually' : 'Add Medication from Image'}
+              </h2>
+              <button 
+                onClick={handleCloseForm}
+                className="p-2 hover:bg-gray-100 rounded-full"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {activeForm === 'manual' && (
+              <div className="space-y-4">
+                {/* Add your manual input form here */}
+                <p>Manual input form coming soon...</p>
+              </div>
+            )}
+
+            {activeForm === 'image' && (
+              <div className="h-full overflow-y-auto">
+                <AddMedication />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Mobile-friendly popup for medication details */}
       {selectedMedication && (
