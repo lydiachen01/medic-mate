@@ -4,13 +4,21 @@ const DrugReport: React.FC = () => {
     const [drugName, setDrugName] = useState('');
     const [results, setResults] = useState<any>(null);
 
+    const capitalizeFirstLetter = (str: string) => {
+        if (!str) return ''; 
+        console.log("IN CAPITALIZE:", str)
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+    
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         
-        fetch("/check_drug?name=" + encodeURIComponent(drugName))
+        fetch(`/api/check_drug?name=${capitalizeFirstLetter(drugName)}`)
             .then(response => response.json())
             .then(data => {
                 setResults(data);
+                console.log(data)
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
