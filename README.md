@@ -1,3 +1,26 @@
+# Hack@Brown 2025 - MedicMate App
+Project team: Yvette Roos, Helena Fu, Lydia Chen, Trishna Bahal
+MedicMate is a personalized app designed to demystify and gamify medical treatment plans, ensuring patients stay informed, engaged, and in control of their health. Medical jargon can be overwhelming, treatments are complicated and emotionally draining, and mistakes happen—shaking trust in the healthcare system. MedicMate simplifies this by providing clear, concise explanations of prescribed therapies, medications, and scheduled appointments, all in one place.
+
+How We Solve the Problem
+- Aggregated Treatment Information: Patients can access an up-to-date, personalized overview of their treatment plan with easy-to-understand explanations and helpful reminders.
+- Medication Interaction Checker: Cross-check medications for dangerous interactions and ensure safety with real-time updates from trusted sources like the FDA and NIH.
+- Patient Empowerment: Give users more control over their treatment by allowing them understand complex treatment plans without the jargon.
+- Computer Vision Verification: Using image classification (TensorFlow, OpenCV, HuggingFace), patients can scan their pills to confirm identity based on color, shape, imprints, and dosage.
+- Warnings & Precautions: Receive automatic alerts about dietary restrictions, side effects, and activities to avoid based on verified medical sources.
+- Multi-Language Support: Our custom-trained LLM provides accurate translations for medical terms, ensuring accessibility for diverse populations.
+- Seamless Integration: Connect with patient portals for easy access to records, automated notifications, and an intuitive UI for tracking medications and conditions.
+
+Features
+✅ User-Friendly Web App: A simple, intuitive interface to manage medications and treatment plans.
+✅ Pill Identification: High-resolution medication images and AI-based verification.
+✅ Therapy & Dosage Tracking: Automated reminders via text notifications.
+✅ Comprehensive Summary: An at-a-glance view of medications, allergies, and ongoing conditions.
+
+# PitchDeck
+https://docs.google.com/presentation/d/1wGkYshauuJCVuha8w2W-8HAod-Ty47-LiALYpAmC1jc/edit?usp=sharing
+
+
 <a href="https://demo-nextjs-with-supabase.vercel.app/">
   <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
   <h1 align="center">Next.js and Supabase Starter Kit</h1>
