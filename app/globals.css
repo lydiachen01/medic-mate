@@ -85,3 +85,12 @@
 .animate-fade-in {
   animation: fade-in 0.3s ease-out forwards;
 }
+
+input:not(:placeholder-shown) {
+    background-color: rgb(241 245 249); /* slate-100 */
+}
+
+/* Or if you want it only after form submission */
+form:valid input:not(:focus) {
+    background-color: rgb(241 245 249);
+}
