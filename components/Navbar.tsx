@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
         <nav className="fixed top-0 left-0 right-0 px-4 py-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <Link href={isAuthenticated ? "/home" : "/"} className="flex items-center">
-                    <img src="/pink_logo.png" alt="Logo" className="h-[4rem]" />
+                    <img src="/logo.png" alt="Logo" className="h-[4rem]" />
                 </Link>
 
                 <div className="flex items-center space-x-10">
