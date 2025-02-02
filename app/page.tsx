@@ -1,3 +1,5 @@
+'use client'
+
 import Welcome from "@/components/Homepage/Welcome";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
