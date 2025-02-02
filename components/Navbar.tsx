@@ -27,7 +27,36 @@ const Navbar: React.FC = () => {
     const router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const supabase = createClient();
-    
+    const [language, setLanguage] = useState('en');
+
+    const toggleLanguage = () => {
+        setLanguage((prevLanguage) => (prevLanguage === 'en' ? 'es' : 'en'));
+    };
+
+    const translate = (text: string) => {
+        const translations: { [key: string]: { [key: string]: string } } = {
+            en: {
+                language: "Language",
+                drugReport: "Drug Report",
+                disclaimer: "Disclaimer",
+                signOut: "Sign Out",
+                ourTeam: "Our Team",
+                login: "Login",
+                signUp: "Sign Up"
+            },
+            es: {
+                language: "Idioma",
+                drugReport: "Informe de Drogas",
+                disclaimer: "Descargo de responsabilidad",
+                signOut: "Cerrar sesión",
+                ourTeam: "Nuestro equipo",
+                login: "Iniciar sesión",
+                signUp: "Regístrate"
+            }
+        };
+        return translations[language][text];
+    };
+
     useEffect(() => {
         // Check initial auth state
         checkAuth();
@@ -69,16 +98,20 @@ const Navbar: React.FC = () => {
                 <Link href={isAuthenticated ? "/home" : "/"} className="flex items-center">
                     <img src="/pink_logo.png" alt="Logo" className="h-[4rem]" />
                 </Link>
+
                 <div className="flex items-center space-x-10">
+                    <button onClick={toggleLanguage} className="hover:underline lg:block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500">
+                        {language === 'en' ? 'ES' : 'EN'}
+                    </button>
                     {isAuthenticated ? (
                         <>
                             <button className="flex items-center lg:hidden rounded p-2">
                                 <img src="/pink_logo.png" alt="Logo" className="h-7" />
                             </button>
-                            <Tabs tabName="Drug Report" link="/display_data"/>
-                            <Tabs tabName="Disclaimer" link="/disclaimer" />
+                            <Tabs tabName={translate("drugReport")} link="/display_data"/>
+                            <Tabs tabName={translate("disclaimer")} link="/disclaimer" />
                             <Tabs 
-                                tabName="Sign Out" 
+                                tabName={translate("signOut")} 
                                 link="#"
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -88,9 +121,9 @@ const Navbar: React.FC = () => {
                         </>
                     ) : (
                         <>
-                            <Tabs tabName="Our Team" link="/#" />
-                            <Tabs tabName="Login" link="/user/login" />
-                            <Tabs tabName="Sign Up" link="/user/signup" />
+                            <Tabs tabName={translate("ourTeam")} link="/#" />
+                            <Tabs tabName={translate("login")} link="/user/login" />
+                            <Tabs tabName={translate("signUp")} link="/user/signup" />
                         </>
                     )}
                 </div>
