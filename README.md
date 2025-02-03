@@ -25,13 +25,15 @@ MedicMate is a personalized app designed to **demystify and gamify medical treat
 ## Check out our demo!
 https://medi-checker.vercel.app/
 
+
 ## Pitch Deck
 https://docs.google.com/presentation/d/1wGkYshauuJCVuha8w2W-8HAod-Ty47-LiALYpAmC1jc/edit?usp=sharing
 
+# Devpost
+https://devpost.com/software/medic-mate
+
 ## Tech Stack
-Built with Next.js, supabase, pytesseract, and gemini api.
-
-
+Built with TypeScript, TailwindCSS, Next.js, Supabase, pytesseract, and Gemini API.
 
 ## Clone and run locally
 
